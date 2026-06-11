@@ -1,0 +1,50 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #E4E4E1;
+ 
+    color: #34495E;             /* default text  */
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif;
+    color: #2C3E50;             /* headings */
+}
+.button{
+    font-family: 'Roboto', sans-serif;
+    background-color: #6a7176;  /* button background */
+    color: #FFFFFF;             /* button text */
+    border: none;
+    padding: 10px 20px;
+}
+.hhh{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; 
+}
+.hhh:hover{
+   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.nav-link:hover{
+    color: #6a7176 !important; 
+}
+.message_show {
+    background: #f1f1f1;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.message_show i {
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+    transition: 0.3s;
+}
+
+.message_show i:hover {
+    color: red;
+}
+
+ 

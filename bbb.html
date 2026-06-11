@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout - BookStore</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .upi-qr {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      margin-top: 10px;
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">📚 BookStore</a>
+      <div>
+        <a href="index.php" class="btn btn-outline-light me-2">Home</a>
+        <a href="cart.php" class="btn btn-outline-warning">Cart</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Checkout Section -->
+  <div class="container py-5">
+    <h2 class="text-center mb-4 fw-bold">🧾 Proceed to Checkout</h2>
+
+    <div class="row g-4">
+      <!-- Billing Form -->
+      <div class="col-lg-8">
+        <div class="card shadow border-0">
+          <div class="card-body">
+            <h5 class="card-title mb-3 fw-bold">Billing Details</h5>
+            <form>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" class="form-control" placeholder="Enter your name" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" placeholder="example@gmail.com" required>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Phone Number</label>
+                  <input type="text" class="form-control" placeholder="Enter your phone" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">City</label>
+                  <input type="text" class="form-control" placeholder="City" required>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Address</label>
+                <textarea class="form-control" rows="3" placeholder="Full address" required></textarea>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">State</label>
+                  <input type="text" class="form-control" placeholder="State" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Postal Code</label>
+                  <input type="text" class="form-control" placeholder="PIN Code" required>
+                </div>
+              </div>
+
+              <hr>
+
+              <h5 class="fw-bold mb-3">Payment Method</h5>
+
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="payment" id="cod" value="cod" checked>
+                <label class="form-check-label" for="cod">Cash on Delivery</label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="payment" id="upi" value="upi">
+                <label class="form-check-label" for="upi">UPI / Net Banking</label>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="radio" name="payment" id="card" value="card">
+                <label class="form-check-label" for="card">Credit / Debit Card</label>
+              </div>
+
+              <!-- Dynamic Payment Details -->
+              <div id="payment-details" class="mt-3"></div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="col-lg-4">
+        <div class="card shadow border-0">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Order Summary</h5>
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                The Great Gatsby <span>₹300</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Harry Potter <span>₹1000</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Shipping <span>₹50</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center fw-bold">
+                Total <span class="text-success">₹1350</span>
+              </li>
+            </ul>
+            <button class="btn btn-success w-100 py-2">Place Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Dynamic Payment JS -->
+  <script>
+    const paymentRadios = document.querySelectorAll('input[name="payment"]');
+    const paymentDetailsDiv = document.getElementById('payment-details');
+
+    paymentRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        let html = '';
+        if (this.value === 'upi') {
+          html = `
+            <div class="border rounded p-3 bg-light">
+              <h6 class="fw-bold mb-2">Enter UPI / Net Banking Details</h6>
+              <label class="form-label">UPI ID or Bank Account</label>
+              <input type="text" class="form-control mb-2" placeholder="example@upi or account number">
+              <p class="text-muted small mb-2">Or scan the QR code below to pay:</p>
+              <img src="upi-qr.png" alt="UPI QR" class="upi-qr">
+            </div>`;
+        } else if (this.value === 'card') {
+          html = `
+            <div class="border rounded p-3 bg-light">
+              <h6 class="fw-bold mb-2">Enter Credit / Debit Card Details</h6>
+              <div class="mb-2">
+                <label class="form-label">Card Number</label>
+                <input type="text" class="form-control" placeholder="XXXX XXXX XXXX XXXX">
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  <label class="form-label">Expiry Date</label>
+                  <input type="text" class="form-control" placeholder="MM/YY">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">CVV</label>
+                  <input type="password" class="form-control" placeholder="***">
+                </div>
+              </div>
+              <div>
+                <label class="form-label">Card Holder Name</label>
+                <input type="text" class="form-control" placeholder="Name on card">
+              </div>
+            </div>`;
+        } else {
+          html = '';
+        }
+        paymentDetailsDiv.innerHTML = html;
+      });
+    });
+  </script>
+
+</body>
+</html>
